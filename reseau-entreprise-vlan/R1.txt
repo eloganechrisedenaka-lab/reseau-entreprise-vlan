@@ -1,0 +1,52 @@
+enable
+conf t
+hostname R1
+ip domain-name entreprise.local
+
+! --- ACL des invités ---
+ip access-list extended BLOCK-INVITES
+ deny ip 192.168.30.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255
+ permit ip any any
+exit
+
+! --- Interface physique vers SW1 ---
+interface g0/0
+ no shutdown
+exit
+
+! --- Sous-interfaces (router-on-a-stick) ---
+interface g0/0.10
+ encapsulation dot1q 10
+ ip address 192.168.10.1 255.255.255.0
+ ip nat inside
+exit
+interface g0/0.20
+ encapsulation dot1q 20
+ ip address 192.168.20.1 255.255.255.0
+ ip nat inside
+exit
+interface g0/0.30
+ encapsulation dot1q 30
+ ip address 192.168.30.1 255.255.255.0
+ ip nat inside
+ ip access-group BLOCK-INVITES in
+exit
+
+! --- Lien vers R-ISP ---
+interface g0/1
+ ip address 203.0.113.2 255.255.255.252
+ ip nat outside
+ no shutdown
+exit
+
+! --- DHCP ---
+ip dhcp excluded-address 192.168.10.1 192.168.10.10
+ip dhcp excluded-address 192.168.20.1 192.168.20.10
+ip dhcp excluded-address 192.168.30.1 192.168.30.10
+ip dhcp pool ADM
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 8.8.8.8
+exit
+ip dhcp pool COMPTA

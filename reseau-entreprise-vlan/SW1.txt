@@ -1,0 +1,27 @@
+enable
+conf t
+hostname SW1
+
+vlan 10
+ name ADMINISTRATION
+vlan 20
+ name COMPTABILITE
+vlan 30
+ name INVITES
+exit
+
+interface range fa0/1-2
+ switchport mode access
+ switchport access vlan 10
+interface range fa0/3-4
+ switchport mode access
+ switchport access vlan 20
+interface range fa0/5-6
+ switchport mode access
+ switchport access vlan 30
+
+interface gi0/1
+ switchport mode trunk
+
+end
+write memory
