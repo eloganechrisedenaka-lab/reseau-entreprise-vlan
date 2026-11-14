@@ -163,11 +163,11 @@ line vty 0 4
 
 | Test | Capture |
 |---|---|
-| VLAN sur SW1 | ![show vlan brief](captures/show-vlan-brief.png) |
-| Traductions NAT | ![NAT](captures/nat-translations.png) |
-| Ping réussi | ![ping ok](captures/ping-ok.png) |
-| Ping bloqué par l'ACL | ![ping bloqué](captures/ping-bloque-acl.png) |
-| SSH accepté, Telnet refusé | ![ssh et telnet](captures/ssh-ok-telnet-refuse.png) |
+| VLAN sur SW1 | ![show vlan brief](Captures/show-vlan-brief.png) |
+| Ping réussi | ![ping ok](Captures/ping-ok.png) |
+| Ping bloqué par l'ACL | ![ping bloqué](Captures/ping-bloque-acl.png) |
+| Compteurs de l'ACL | ![show access-lists](Captures/sh-access-list.png) |
+| SSH accepté, Telnet refusé | ![ssh et telnet](Captures/ssh-ok-telnet-refuse.png) |
 
 ## 7. Dépannage (pannes simulées)
 
